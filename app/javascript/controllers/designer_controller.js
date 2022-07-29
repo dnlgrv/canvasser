@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import { fabric } from "fabric"
+import Barcode from "./designer/barcode"
 
 export default class extends Controller {
   static targets = ["canvas", "output"]
@@ -35,15 +36,15 @@ export default class extends Controller {
     })
   }
 
-  addTextBlock() {
-    const text = new fabric.Textbox("Double-click to edit me...", {
-      fontSize: 14,
+  addBarcode() {
+    const barcode = new Barcode({
+      height: 30,
       left: 20,
       top: 20,
-      width: 120
+      width: 60
     })
 
-    this.canvas.add(text)
+    this.canvas.add(barcode)
   }
 
   addShapeBlock() {
@@ -56,6 +57,17 @@ export default class extends Controller {
     })
 
     this.canvas.add(shape)
+  }
+
+  addTextBlock() {
+    const text = new fabric.Textbox("Double-click to edit me...", {
+      fontSize: 14,
+      left: 20,
+      top: 20,
+      width: 120
+    })
+
+    this.canvas.add(text)
   }
 
   generateOutput() {
