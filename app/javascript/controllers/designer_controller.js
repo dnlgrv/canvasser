@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { fabric } from "fabric"
 
 export default class extends Controller {
-  static targets = ["canvas"]
+  static targets = ["canvas", "output"]
 
   connect() {
     this.canvas = new fabric.Canvas(this.canvasTarget, {
@@ -40,5 +40,9 @@ export default class extends Controller {
     })
 
     this.canvas.add(text)
+  }
+
+  generateOutput() {
+    this.outputTarget.innerText = JSON.stringify(this.canvas, undefined, 2)
   }
 }
