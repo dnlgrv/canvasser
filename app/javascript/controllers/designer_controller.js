@@ -30,9 +30,9 @@ export default class extends Controller {
     })
 
     this.canvas.setDimensions({
-      height: "100%",
-      width: "100%",
-    }, { cssOnly: true })
+      height: 320,
+      width: 480,
+    })
   }
 
   addTextBlock() {
@@ -101,6 +101,10 @@ export default class extends Controller {
 
   changeBackgroundColor(event) {
     this.canvas.getActiveObject().set("fill", event.target.value)
+    this.canvas.renderAll()
+  }
+
+  render() {
     this.canvas.renderAll()
   }
 }
