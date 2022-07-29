@@ -120,8 +120,4 @@ export default class extends Controller {
     this.canvas.getActiveObject().set("fill", event.target.value)
     this.canvas.renderAll()
   }
-
-  render() {
-    this.canvas.renderAll()
-  }
 }
