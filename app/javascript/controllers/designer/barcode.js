@@ -19,4 +19,9 @@ const Barcode = fabric.util.createClass(fabric.Rect, {
   }
 })
 
+fabric.Barcode = Barcode
+fabric.Barcode.fromObject = function (object, callback) {
+  return fabric.Object._fromObject("Barcode", object, callback)
+}
+
 export default Barcode

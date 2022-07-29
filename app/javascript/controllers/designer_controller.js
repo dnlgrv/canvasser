@@ -74,6 +74,11 @@ export default class extends Controller {
     this.outputTarget.innerText = JSON.stringify(this.canvas, undefined, 2)
   }
 
+  load() {
+    const json = window.prompt("Paste your serialized output.")
+    this.canvas.loadFromJSON(json)
+  }
+
   removeObject() {
     const selectedObject = this.canvas.getActiveObject()
     this.canvas.remove(selectedObject)
