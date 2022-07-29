@@ -21,6 +21,10 @@ export default class extends Controller {
       this.dispatch("objectSelected", { detail: { event } })
     })
 
+    this.canvas.on("selection:updated", (event) => {
+      this.dispatch("objectSelected", { detail: { event } })
+    })
+
     this.canvas.on("selection:cleared", () => {
       this.dispatch("selectionCleared", {})
     })
@@ -42,6 +46,18 @@ export default class extends Controller {
     this.canvas.add(text)
   }
 
+  addShapeBlock() {
+    const shape = new fabric.Rect({
+      fill: "green",
+      height: 30,
+      left: 20,
+      top: 20,
+      width: 30,
+    })
+
+    this.canvas.add(shape)
+  }
+
   generateOutput() {
     this.outputTarget.innerText = JSON.stringify(this.canvas, undefined, 2)
   }
@@ -49,5 +65,42 @@ export default class extends Controller {
   removeObject() {
     const selectedObject = this.canvas.getActiveObject()
     this.canvas.remove(selectedObject)
+  }
+
+  changeShapeType(event) {
+    const selectedObject = this.canvas.getActiveObject()
+    const newShapeType = event.target.value
+
+    if (newShapeType == "circle") {
+      const shape = new fabric.Circle({
+        fill: selectedObject.fill,
+        left: selectedObject.left,
+        radius: selectedObject.width / 2,
+        top: selectedObject.top
+      })
+
+      this.canvas.remove(selectedObject)
+
+      this.canvas.add(shape)
+      this.canvas.setActiveObject(shape)
+    } else if (newShapeType == "rect") {
+      const shape = new fabric.Rect({
+        fill: selectedObject.fill,
+        height: selectedObject.height,
+        left: selectedObject.left,
+        width: selectedObject.width,
+        top: selectedObject.top
+      })
+
+      this.canvas.remove(selectedObject)
+
+      this.canvas.add(shape)
+      this.canvas.setActiveObject(shape)
+    }
+  }
+
+  changeBackgroundColor(event) {
+    this.canvas.getActiveObject().set("fill", event.target.value)
+    this.canvas.renderAll()
   }
 }

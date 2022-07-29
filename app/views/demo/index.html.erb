@@ -10,13 +10,20 @@
         data-action="click->designer#addTextBlock">
         + Text
       </button>
-      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50"
+        data-action="click->designer#addShapeBlock">
+        + Shape
+      </button>
+      <button
+        class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50 opacity-30">
         + Image
       </button>
-      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+      <button
+        class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50 opacity-30">
         + Barcode
       </button>
-      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+      <button
+        class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50 opacity-30">
         + Progress
       </button>
     </div>
@@ -38,22 +45,47 @@
     </div>
 
     <aside class="bg-slate-50 p-4 border rounded-lg w-1/4">
-      <div data-inspector-target="layout" class="min-h-full flex flex-col justify-between">
-        <div class="flex flex-col gap-2">
-          <div>
-            <label for="layoutX" class="text-xs font-medium uppercase text-slate-600">X Position</label>
-            <input id="layoutX" type="text" data-inspector-target="layoutX"
-              class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" readonly />
+      <div class="min-h-full flex flex-col justify-between">
+        <div class="flex flex-col gap-4">
+          <div data-inspector-target="layout" class="flex flex-col gap-2">
+            <div>
+              <label for="layoutX" class="text-xs font-medium uppercase text-slate-600">X Position</label>
+              <input id="layoutX" type="text" data-inspector-target="layoutX"
+                class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" readonly />
+            </div>
+
+            <div>
+              <label for="layoutY" class="text-xs font-medium uppercase text-slate-600">Y Position</label>
+              <input id="layoutY" type="text" data-inspector-target="layoutY"
+                class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" />
+            </div>
           </div>
 
-          <div>
-            <label for="layoutY" class="text-xs font-medium uppercase text-slate-600">Y Position</label>
-            <input id="layoutY" type="text" data-inspector-target="layoutY"
-              class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" />
+          <div data-inspector-target="shape" class="flex flex-col gap-2">
+            <div>
+              <label for="shapeType" class="text-xs font-medium uppercase text-slate-600">Shape</label>
+              <select id="shapeType" data-inspector-target="shapeType"
+                class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100"
+                data-action="change->designer#changeShapeType">
+                <option value="circle">Circle</option>
+                <option value="rect">Rectangle</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="backgroundColor" class="text-xs font-medium uppercase text-slate-600">Shape</label>
+              <select id="backgroundColor" data-inspector-target="backgroundColor"
+                class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100"
+                data-action="change->designer#changeBackgroundColor">
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="blue">Blue</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <div>
+        <div data-inspector-target="actions">
           <button
             class="transition-all bg-red-200 hover:bg-red-300 border-red-400 text-center text-sm font-semibold text-red-600 hover:text-red-700 w-full rounded-sm py-2"
             data-action="click->designer#removeObject">

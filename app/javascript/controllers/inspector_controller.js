@@ -1,19 +1,27 @@
 import { Controller } from "@hotwired/stimulus"
 
+const isShape = (object) => {
+  return object.type == "rect" || object.type == "circle"
+}
+
 export default class extends Controller {
-  static targets = ["layout", "layoutX", "layoutY"]
+  static targets = ["actions", "layout", "layoutX", "layoutY", "shape", "shapeType", "backgroundColor"]
 
   connect() {
     this.hide()
   }
 
   show(event) {
+    this.actionsTarget.style.display = ""
     this.layoutTarget.style.display = ""
+
     this.update(event)
   }
 
   hide() {
+    this.actionsTarget.style.display = "none"
     this.layoutTarget.style.display = "none"
+    this.shapeTarget.style.display = "none"
   }
 
   update(event) {
@@ -29,5 +37,17 @@ export default class extends Controller {
   _updateValues(object) {
     this.layoutXTarget.value = object.left
     this.layoutYTarget.value = object.top
+
+    if (isShape(object)) {
+      this.shapeTarget.style.display = ""
+      this._updateShapeValues(object)
+    } else {
+      this.shapeTarget.style.display = "none"
+    }
+  }
+
+  _updateShapeValues(object) {
+    this.backgroundColorTarget.value = object.fill
+    this.shapeTypeTarget.value = object.type
   }
 }
