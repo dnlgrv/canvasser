@@ -45,4 +45,9 @@ export default class extends Controller {
   generateOutput() {
     this.outputTarget.innerText = JSON.stringify(this.canvas, undefined, 2)
   }
+
+  removeObject() {
+    const selectedObject = this.canvas.getActiveObject()
+    this.canvas.remove(selectedObject)
+  }
 }

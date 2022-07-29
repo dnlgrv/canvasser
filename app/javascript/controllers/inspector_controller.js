@@ -4,11 +4,11 @@ export default class extends Controller {
   static targets = ["layout", "layoutX", "layoutY"]
 
   connect() {
-    // this.hide()
+    this.hide()
   }
 
   show(event) {
-    this.layoutTarget.style.display = "block"
+    this.layoutTarget.style.display = ""
     this.update(event)
   }
 
