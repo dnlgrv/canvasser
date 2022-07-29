@@ -2,8 +2,56 @@
   <h1 class="text-4xl font-bold">Demo</h1>
 </header>
 
-<div class="bg-slate-100 p-14 border border-dashed rounded-lg flex items-center justify-center">
-  <div class="font-bold text-md text-slate-500 uppercase">
-    Demo content area...
+<section data-controller="designer inspector"
+  data-action="designer:objectSelected->inspector#show designer:selectionCleared->inspector#hide designer:objectUpdated->inspector#update">
+  <nav class="flex justify-between">
+    <div class="flex gap-2 mb-4">
+      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50"
+        data-action="click->designer#addTextBlock">
+        + Text
+      </button>
+      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+        + Image
+      </button>
+      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+        + Barcode
+      </button>
+      <button class="text-xs font-medium text-slate-500 uppercase border rounded-sm px-2 py-1 hover:bg-slate-50">
+        + Progress
+      </button>
+    </div>
+
+    <div>
+      <div class="flex gap-2 mb-4">
+        <button
+          class="text-xs font-medium bg-slate-300 hover:bg-slate-400 text-slate-500 hover:text-slate-600 uppercase rounded-sm px-2 py-1">
+          Generate Output
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="flex gap-4">
+    <div class="bg-slate-100 border border-dashed rounded-lg h-96 w-3/4">
+      <canvas data-designer-target="canvas" class="rounded-lg"></canvas>
+    </div>
+
+    <aside class="bg-slate-50 p-4 border rounded-lg w-1/4">
+      <div data-inspector-target="layout">
+        <div class="flex flex-col gap-2">
+          <div>
+            <label for="layoutX" class="text-xs font-medium uppercase text-slate-600">X Position</label>
+            <input id="layoutX" type="text" data-inspector-target="layoutX"
+              class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" readonly />
+          </div>
+
+          <div>
+            <label for="layoutY" class="text-xs font-medium uppercase text-slate-600">Y Position</label>
+            <input id="layoutY" type="text" data-inspector-target="layoutY"
+              class="p-1 border border-slate-200 rounded-sm text-sm text-slate-600 w-full bg-slate-100" />
+          </div>
+        </div>
+      </div>
+    </aside>
   </div>
-</div>
+</section>
