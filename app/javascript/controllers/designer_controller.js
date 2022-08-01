@@ -1,9 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 import Konva from "konva"
 
-// Connects to data-controller="designer"
 export default class extends Controller {
-  static targets = ["container"]
+  static targets = ["container", "output"]
 
   connect() {
     const stage = new Konva.Stage({
@@ -97,5 +96,9 @@ export default class extends Controller {
     const textNode = this.transformer.nodes()[0]
     textNode.setAttrs({ text: event.target.value })
     this._update(textNode)
+  }
+
+  generateOutput() {
+    this.outputTarget.innerText = JSON.stringify(this.layer.toObject(), undefined, 2)
   }
 }
