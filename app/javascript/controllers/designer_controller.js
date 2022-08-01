@@ -5,43 +5,32 @@ export default class extends Controller {
   static targets = ["container", "output"]
 
   connect() {
-    const stage = new Konva.Stage({
+    this.stage = new Konva.Stage({
       container: this.containerTarget,
       width: 480,
       height: 320
     })
 
     const uiLayer = new Konva.Layer()
-    stage.add(uiLayer)
+    this.stage.add(uiLayer)
 
     const background = new Konva.Rect({
       x: 0,
       y: 0,
-      width: stage.width(),
-      height: stage.height(),
+      width: this.stage.width(),
+      height: this.stage.height(),
       fill: "white",
       listening: false
     })
     uiLayer.add(background)
 
     this.layer = new Konva.Layer()
-    stage.add(this.layer)
+    this.stage.add(this.layer)
 
-    this.transformer = new Konva.Transformer({
-      enabledAnchors: ["middle-left", "middle-right"],
-      boundBoxFunc: function (oldBox, newBox) {
-        newBox.width = Math.max(30, newBox.width)
-        return newBox
-      }
-    })
-    this.layer.add(this.transformer)
+    this._addTransformer()
 
-    this.transformer.on("dragmove transform", (event) => {
-      this._update(this.transformer.nodes()[0])
-    })
-
-    stage.on("click tap", (event) => {
-      if (event.target === stage) {
+    this.stage.on("click tap", (event) => {
+      if (event.target === this.stage) {
         this._unselect()
         return
       }
@@ -98,7 +87,33 @@ export default class extends Controller {
     this._update(textNode)
   }
 
+  load() {
+    const json = window.prompt("Paste your serlaized output.")
+
+    this.layer.destroy()
+    this.layer = Konva.Node.create(json)
+    this.layer.find(".transformer")[0].destroy()
+    this._addTransformer()
+    this.stage.add(this.layer)
+  }
+
   generateOutput() {
     this.outputTarget.innerText = JSON.stringify(this.layer.toObject(), undefined, 2)
+  }
+
+  _addTransformer() {
+    this.transformer = new Konva.Transformer({
+      enabledAnchors: ["middle-left", "middle-right"],
+      boundBoxFunc: function (oldBox, newBox) {
+        newBox.width = Math.max(30, newBox.width)
+        return newBox
+      }
+    })
+    this.transformer.addName("transformer")
+    this.layer.add(this.transformer)
+
+    this.transformer.on("dragmove transform", (event) => {
+      this._update(this.transformer.nodes()[0])
+    })
   }
 }
