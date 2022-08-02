@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
 import Konva from "konva"
+import JsBarcode from "jsbarcode"
 
 export default class extends Controller {
   static targets = ["container", "output"]
@@ -37,6 +38,22 @@ export default class extends Controller {
 
       this._select(event.target)
     })
+  }
+
+  addBarcode() {
+    const shape = new Konva.Shape({
+      x: 20,
+      y: 20,
+      width: 80,
+      height: 20,
+
+      sceneFunc: (ctx, shape) => {
+        JsBarcode(ctx.canvas, "Hello", {})
+      }
+    })
+
+    this.layer.add(shape)
+    this._select(shape)
   }
 
   addTextBlock() {
